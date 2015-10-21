@@ -1,29 +1,28 @@
 
-## This function create a special Matrix that contain a variable to hold 
-## its inverse
-## Example of usage :
-## m<-matrix(c(1:4),2,2)
-## mcache<-makeCacheMatrix(m)
+# This function create a special Matrix that contain a variable to hold 
+# its inverse
+# Example of usage :
+# m<-matrix(c(1:4), 2, 2)
+# mcache<-makeCacheMatrix(m)
 
 makeCacheMatrix <- function(x = matrix()) {
   
   ## Check whether the data supplied is matrix/not.
   ## If not a matrix, throw error
-  if(!is.matrix(x)) {
-    
+  if (!is.matrix(x)) {
     stop("The data supplied must be a matrix")
   }
   
-  ##Initialize the inverse variable
+  #Initialize the inverse variable
   i<-NULL
   
-  ##Set the matrix dat?a
-  set<- function(m1)  {
+  #Set the matrix data
+  set <- function(m1)  {
     
-    ## Check whether the data supplied is matrix/not
-    ## If not a matrix, throw error
+    # Check whether the data supplied is matrix/not
+    # If not a matrix, throw error
     
-    if(!is.matrix(m1)) {
+    if (!is.matrix(m1)) {
       stop("The data supplied must be a matrix")
     }
     
@@ -32,58 +31,57 @@ makeCacheMatrix <- function(x = matrix()) {
     
   }
   
-  ##Get the matrix data
-  get<-function() x
+  #Get the matrix data
+  get <- function() x
   
-  ## Setting the value of the inversed Matrix
+  # Setting the value of the inversed Matrix
   setInverse <- function(inverseMatrix) i <<- inverseMatrix
   
-  ## Getting the value of the inversed Matrix
+  # Getting the value of the inversed Matrix
   getInverse <- function() i
   
-  ##Return the function as a list
-  list(set=set,get=get,
+  #Return the function as a list
+  list(set=set, get=get,
        setInverse = setInverse,
        getInverse = getInverse)
   
-  ##Finish
+  #Finish
 }
 
 
 
 
-## This function takes variable of makeCacheMatrix 
-## and calculate its inverse (if none exist), or
-## show its inverse from the cache ( if it exist)
-## Example of usage :
-## m<-matrix(c(1:4),2,2)
-## mcache<-makeCacheMatrix(m)
-## cacheSolve(mcache)
-## mcache$getInverse()
+# This function takes variable of makeCacheMatrix 
+# and calculate its inverse (if none exist), or
+# show its inverse from the cache ( if it exist)
+# Example of usage :
+# m<-matrix(c(1:4), 2, 2)
+# mcache<-makeCacheMatrix(m)
+# cacheSolve(mcache)
+# mcache$getInverse()
 
 
 cacheSolve <- function(x, ...) {
   
-  ## Return a matrix that is the inverse of 'x' (if any)
-  inverse<-x$getInverse()
+  # Return a matrix that is the inverse of 'x' (if any)
+  inverse <- x$getInverse()
   
-  ## Check the cache 
-  ## if cache is not exist , then calculate the inverse. 
-  ## If cache exist, printout the cache to screen
+  # Check the cache 
+  # if cache is not exist , then calculate the inverse. 
+  # If cache exist, printout the cache to screen
   
   
-  if(is.null(inverse)) {
+  if (is.null(inverse)) {
     print(" Calculate inverse")
-    dataMatrix<-x$get()
-    inverse<-solve(dataMatrix)
+    dataMatrix <- x$get()
+    inverse <- solve(dataMatrix)
     x$setInverse(inverse)
     return(inverse)
-  }
-  else  {
-    print(" Printing from cache")
+  } else  {
+    print("Printing from cache")
     
     return(inverse)
   }
   
-  ##Finish
+  #Finish
 }
